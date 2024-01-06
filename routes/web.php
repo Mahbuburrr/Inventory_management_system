@@ -34,19 +34,20 @@ use App\Http\Controllers\HomeController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+Route::get('/dashboard', [HomeController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
 
     Route::get('/', [FrontendController::class, 'index']);
-    Route::get('/aboutus', [FrontendController::class, 'aboutus'])->name('about.us');
-    Route::get('/contactus', [FrontendController::class, 'contactus']);
+    // Route::get('/aboutus', [FrontendController::class, 'aboutus'])->name('about.us');
+    // Route::get('/contactus', [FrontendController::class, 'contactus']);
+Route::group(['middleware'=>'auth'],function(){
 
     // Default Controller
     Route::get('/get-category', [DefaultController::class, 'getcategory'])->name('get-category');
     Route::get('/get-product', [DefaultController::class, 'getproduct'])->name('get-product');
     Route::get('/get-stock', [DefaultController::class, 'getstock'])->name('check-product-stock');
     
-    
-    Route::get('/dashboard', [HomeController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
-// Users Controller Group======================
+
+    // Users Controller Group======================
     Route::prefix('users')->group(function(){
     Route::get('/view', [UserController::class, 'view'])->name('users.view');
     Route::get('/add', [UserController::class, 'add'])->name('users.add');
@@ -60,7 +61,7 @@ use App\Http\Controllers\HomeController;
 
 
     // Profiles Controller Group======================
-    Route::prefix('profiles')->group(function(){
+        Route::prefix('profiles')->group(function(){
         Route::get('/view', [ProfilesController::class, 'view'])->name('profiles.view');
         Route::get('/edit', [ProfilesController::class, 'edit'])->name('profiles.edit');
         Route::post('/update', [ProfilesController::class, 'update'])->name('profiles.update');
@@ -71,7 +72,7 @@ use App\Http\Controllers\HomeController;
         });
 
         // Suppliers Controller Group======================
-    Route::prefix('suppliers')->group(function(){
+        Route::prefix('suppliers')->group(function(){
         Route::get('/view', [SupplierController::class, 'view'])->name('suppliers.view');
         Route::get('/add', [SupplierController::class, 'add'])->name('suppliers.add');
         Route::post('/store', [SupplierController::class, 'store'])->name('suppliers.store');
@@ -83,7 +84,7 @@ use App\Http\Controllers\HomeController;
         });
 
          // Customers Controller Group======================
-    Route::prefix('customers')->group(function(){
+        Route::prefix('customers')->group(function(){
         Route::get('/view', [CustomerController::class, 'view'])->name('customers.view');
         Route::get('/add', [CustomerController::class, 'add'])->name('customers.add');
         Route::post('/store', [CustomerController::class, 'store'])->name('customers.store');
@@ -105,7 +106,7 @@ use App\Http\Controllers\HomeController;
         });
 
  //UnitController  Group======================
-        Route::prefix('units')->group(function(){
+            Route::prefix('units')->group(function(){
             Route::get('/view', [UnitController::class, 'view'])->name('units.view');
             Route::get('/add', [UnitController::class, 'add'])->name('units.add');
             Route::post('/store', [UnitController::class, 'store'])->name('units.store');
@@ -117,7 +118,7 @@ use App\Http\Controllers\HomeController;
             });
 
             //CategoryController  Group======================
-        Route::prefix('categories')->group(function(){
+            Route::prefix('categories')->group(function(){
             Route::get('/view', [CategoryController::class, 'view'])->name('categories.view');
             Route::get('/add', [CategoryController::class, 'add'])->name('categories.add');
             Route::post('/store', [CategoryController::class, 'store'])->name('categories.store');
@@ -130,10 +131,10 @@ use App\Http\Controllers\HomeController;
 
             
             //ProductController  Group======================
-        Route::prefix('products')->group(function(){
+            Route::prefix('products')->group(function(){
             Route::get('/view', [ProductController::class, 'view'])->name('products.view');
             Route::get('/add', [ProductController::class, 'add'])->name('products.add');
-            Route::post('/store', [ProductController::class, 'store'])->name('products.store');
+            Route::post('/store', [ProductController::class, 'store'])->name('products.store')->middleware('test');
             Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
             Route::post('/update/{id}', [ProductController::class, 'update'])->name('products.update');
             Route::get('/delete/{id}', [ProductController::class, 'delete'])->name('products.delete');
@@ -157,7 +158,7 @@ use App\Http\Controllers\HomeController;
             });
 
             //InvoiceController  Group======================
-            Route::prefix('invoice')->group(function(){
+                Route::prefix('invoice')->group(function(){
                 Route::get('/view', [InvoiceController::class, 'view'])->name('invoice.view');
                 Route::get('/add', [InvoiceController::class, 'add'])->name('invoice.add');
                 Route::post('/store', [InvoiceController::class, 'store'])->name('invoice.store');
@@ -169,6 +170,7 @@ use App\Http\Controllers\HomeController;
                 Route::post('/approve/store/{id}', [InvoiceController::class, 'approvestore'])->name('approval.store');
                 Route::get('/daily/report', [InvoiceController::class, 'dailyreport'])->name('daily.invoice.report');
                 Route::get('/daily/report/pdf', [InvoiceController::class, 'dailyreportpdf'])->name('daily.invoice.pdf');
+                Route::get('/paid', [InvoiceController::class, 'paid'])->name('invoice.paid');
                
                    
                 });
@@ -185,6 +187,12 @@ use App\Http\Controllers\HomeController;
            
                
             });
+    
+
+});
+    
+    
+
 
 
 

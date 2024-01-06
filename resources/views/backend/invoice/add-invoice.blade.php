@@ -34,7 +34,7 @@
             <div class="card">
               <div class="card-header">
                 <h3>Add Invoice
-                  <a href="{{route('purchase.view')}}" class="btn btn-success float-right btn-sm"><i 
+                  <a href="{{route('invoice.view')}}" class="btn btn-success float-right btn-sm"><i 
                   class="fa fa-list"></i>Invoice List</a>
                 </h3>
               </div><!-- /.card-header -->
@@ -88,7 +88,7 @@
 
 
                     <div class="form-group col-md-1">
-                        <label for="name">Stock(PCS/KG)</label>
+                        <label for="name">Stocks</label>
                         <input name="current_stock_qty" id="current_stock_qty" class="form-control form-control-sm" readonly style="background-color:#DBFDBA">
                         
                         </input>
@@ -152,7 +152,7 @@
                   <div class="form-row">
                     <div class="form-group col-md-3">
                       <label >Paid Status</label>
-                      <select name="paid_status" id="paid_status" class="form-control form-control-sm paid_status">
+                      <select required name="paid_status" id="paid_status" class="form-control form-control-sm paid_status">
                          <option value="">Select Status</option>
                          <option value="full_paid">Full Paid</option>
                          <option value="full_due">Full Due</option>

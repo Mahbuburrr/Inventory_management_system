@@ -322,7 +322,7 @@
       });
     });
 </script>
-
+<!-- Category change with supplier Id ==use jquery -->
 <script>
   $(function(){
 

@@ -51,6 +51,7 @@
                   <th>Unit</th>
                   <th>Action</th>
                 </tr>
+                </thead>
 
                 <tbody>
                   @foreach($allData as $key => $product)
@@ -78,7 +79,8 @@
                 </tbody>
            
           
-              </thead>
+                
+
 
               </table>
               

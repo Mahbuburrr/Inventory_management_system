@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\User;
 use App\Models\Purchase;
 use App\Models\Supplier;
 use App\Models\Category;
@@ -34,4 +35,5 @@ class DefaultController extends Controller
         $stock=Product::where('id',$product_id)->first()->quantity;
         return response()->json($stock);
     }
-}
+
+    }

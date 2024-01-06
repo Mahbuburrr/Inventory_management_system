@@ -19,10 +19,22 @@ use DB;
 use PDF;
 class InvoiceController extends Controller
 {
-    public function view(){
-        $data['allData']=Invoice::orderBy('date','desc')->orderBy('id','desc')->where('status',1)->get();
+    public function view(Request $request){
+        if($request->has('status')){
+          $data['allData']=Payment::where('paid_status',$request->status)->with(['invoice','customer'])->get();
+        }else{
+          $data['allData']=Payment::with(['invoice','customer'])->get();
+        }
+       
+
+        // dd($data['allData']);
+
         return view('backend.invoice.view-invoice',$data);
        }
+       
+        
+       
+       
     
        public function add(){
 

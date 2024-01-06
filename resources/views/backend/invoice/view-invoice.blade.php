@@ -1,6 +1,9 @@
 
 @extends('backend.layouts.master')
 @section('content')
+<style>
+ 
+</style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -37,37 +40,50 @@
                   <a href="{{route('invoice.add')}}" class="btn btn-success float-right btn-sm"><i 
                   class="fa fa-plus-circle"></i>Add Invoice</a>
                 </h3>
+                
               </div><!-- /.card-header -->
               <div class="card-body">
-
-              <table id="example1" class="table table-bordered table-hover">
-
+                
+              
+              <table bordered="1" id="example1" class="table table-bordered table-hover">
+                
+              
                <thead>
                 <tr>
-                  <th>SL.</th>
-                  <th>Invoice No</th>
-
-                  <th>Customer Name</th>
-                  <th>Date</th>
-                  <th>Description</th>
-                  <th>Amount</th>
+                <div class="btn-group" role="group"  aria-label="Basic example" style="float:right; z-index:15000" >
+                  <a href="{{route('invoice.view')}}" class="btn btn-secondary">All</a>
+                  <a href="{{route('invoice.view',['status' => 'full_paid'])}}" class="btn btn-secondary"> paid</a>
+                  <a href="{{route('invoice.view',['status' => 'partial_paid'])}}" class="btn btn-secondary"> partial paid</a>
+                  <a href="{{route('invoice.view',['status' => 'full_due'])}}" class="btn btn-secondary"> Due</a>
+                </div>
                 </tr>
+                  <tr width='200px'>
+                  
+                    <th>SL.</th>
+                    <th>Invoice No</th>
+
+                    <th>Customer Name</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                  </tr>
+               </thead>
 
                 <tbody>
-                  @foreach($allData as $key => $invoice)
+                  @foreach($allData as $key => $payment)
                     <tr>
                       <td>{{$key+1}}</td>
-                      <td>Invoice No #{{$invoice->invoice_no}} </td>
-                      <td> {{$invoice['payment']['customer']['name'] }}
-                      ({{$invoice['payment']['customer']['mobile_no'] }}-{{$invoice['payment']['customer']['address'] }})
+                      <td>Invoice No #{{$payment->invoice->invoice_no}} </td>
+                      <td> c name #{{$payment->customer->name}}
+                        ({{$payment->customer->mobile_no}} - {{$payment->customer->address}})
                       </td>
-                      <td>{{date('d-m-Y',strtotime($invoice->date))}}</td>
+                      <td>{{date('d-m-Y',strtotime($payment->invoice->date))}}</td>
                       
-                      <td>{{$invoice->description}}</td>
+                      <td>{{$payment->invoice->description}}</td>
                       
                       <td>
                     
-                      {{$invoice['payment']['total_amount'] }}
+                      {{$payment->total_amount }}
                       </td>
                     </tr>
                   @endforeach
@@ -75,13 +91,14 @@
                      
                   
                 </tbody>
-           
-              </thead>
+                
 
               </table>
               
                 </div>
+                
               </div><!-- /.card-body -->
+              
             </div>
             <!-- /.card -->
 

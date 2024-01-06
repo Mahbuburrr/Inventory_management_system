@@ -18,7 +18,7 @@
 			background: #60a3bc !important;
 		}
 		.user_card {
-			height: 500px;
+			height: 400px;
 			width: 350px;
 			margin-top: auto;
 			margin-bottom: auto;
