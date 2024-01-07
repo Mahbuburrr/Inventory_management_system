@@ -32,7 +32,16 @@ class InvoiceController extends Controller
         return view('backend.invoice.view-invoice',$data);
        }
        
-        
+        public function deleteAll(Request $request){
+          $ids=array_values($request->ids);
+          
+
+          Payment::whereIn('invoice_id',$ids)->delete();
+return response()->json(["success"=>Invoice::whereIn('id',$ids)->delete()?true:false]);
+
+
+          
+        }
        
        
     
@@ -48,7 +57,6 @@ class InvoiceController extends Controller
         }
         else{
           $invoice_data=Invoice::orderBy('id','desc')->first()->invoice_no;
-
           $data['invoice_no']=$invoice_data+1;
          
         }
@@ -220,9 +228,7 @@ class InvoiceController extends Controller
       
 
 function printinvoice($id) {
-
-	$data['invoice']=Invoice:: with(['invoice_details'])->find($id);
-	
+      $data['invoice']=Invoice:: with(['invoice_details','invoice_details.product'])->find($id);
 	$pdf = PDF::loadView('backend.pdf.invoice-pdf', $data);
 	return $pdf->stream('webappfix.pdf');
 }

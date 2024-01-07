@@ -134,6 +134,10 @@
                         <td><input type="text" name="discount_amount" id="discount_amount" class="form-control form-control-sm discount_amount" placeholder="Enter Discount amount"></td>
                       </tr>
                       <tr>
+                        <td colspan="4">Tax</td>
+                        <td><input type="text" name="tax_amount" id="tax_amount" class="form-control form-control-sm tax_amount" placeholder="Enter tax amount"></td>
+                      </tr>
+                      <tr>
                       <td colspan="4"></td>
                       <td>
                         <input type="text" name="estimated_amount" value="0" id="estimated_amount"
@@ -304,6 +308,7 @@
         var total=unit_price * qty;
         $(this).closest("tr").find("input.selling_price").val(total);
         $('#discount_amount').trigger('keyup');
+        $('#tax_amount').trigger('keyup');
        
       });
 
@@ -311,6 +316,12 @@
 
         totlalAmountPrice();
       });
+
+      //tax amount
+      $(document).on('keyup','#tax_amount',function(){
+
+          totlalAmountPrice();
+         });
 
       // calculate sum of amount in invoice
       function totlalAmountPrice(){
@@ -327,9 +338,19 @@
           sum -=parseFloat(discount_amount);
         }
         $('#estimated_amount').val(sum);
+        var tax_amount=parseFloat($('#tax_amount').val());
+        if(!isNaN(tax_amount) && tax_amount.length !=0){
+          sum +=parseFloat(tax_amount);
+        }
+        $('#estimated_amount').val(sum);
         
       }
     });
+
+    
+        
+      
+    
   </script>
 
   <!-- Jquery Validation=================== -->

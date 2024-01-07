@@ -171,6 +171,7 @@ Route::group(['middleware'=>'auth'],function(){
                 Route::get('/daily/report', [InvoiceController::class, 'dailyreport'])->name('daily.invoice.report');
                 Route::get('/daily/report/pdf', [InvoiceController::class, 'dailyreportpdf'])->name('daily.invoice.pdf');
                 Route::get('/paid', [InvoiceController::class, 'paid'])->name('invoice.paid');
+                Route::delete('/seleted-invoice', [InvoiceController::class, 'deleteAll'])->name('invoice.deleteall');
                
                    
                 });
